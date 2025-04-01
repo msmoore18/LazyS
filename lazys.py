@@ -20,7 +20,6 @@ if page == "Lot Map":
 
 # Sales Page
 elif page == "Sales":
-    st.markdown("<h4 style='color:gray;'>Interactive Analysis of Sales Data</h4>", unsafe_allow_html=True)
 
     st.sidebar.header("Filters & Chart Options")
 
