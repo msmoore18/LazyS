@@ -54,12 +54,13 @@ elif page == "Sales":
         "Clementines": "turquoise",
         "Tangos": "red",
         "Washingtons": "orange",
-        "Atwoods": "orange",
+        "Atwood": "orange",
         "Cara Cara": "orange",
         "Powells": "orange",
         "Valencias": "purple",
         "Lemons": "yellow",
-        "Grapefruit": "pink"
+        "Grapefruit": "pink",
+        "Late Lane": "pink"
     }
 
     # Custom block order
