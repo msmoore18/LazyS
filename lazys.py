@@ -20,7 +20,7 @@ if page == "Lot Map":
 
 # Sales Page
 elif page == "Sales":
-    st.title("📊 Financial Sales Dashboard")
+    st.title("\U0001F4CA Financial Sales Dashboard")
     st.markdown("<h4 style='color:gray;'>Interactive Analysis of Sales Data</h4>", unsafe_allow_html=True)
 
     st.sidebar.header("Filters & Chart Options")
@@ -37,33 +37,43 @@ elif page == "Sales":
     else:
         sales_filtered = data[data["Year"] == selected_year]
 
-    # X-Axis Options
-    x_axis = st.sidebar.selectbox("Select X-Axis", options=["Block", "Variety"])
+    # Axis options
+    x_axis_options = {"Block": "Block", "Variety": "Variety"}
+    y_axis_options = {
+        "Total Field Boxes": "Total Field Boxes",
+        "Field Boxes Per Acre": "Field Boxes Per Acre",
+        "Total Bins (Tons)": "Total Bins (Tons)",
+        "Bins Per Acre": "Bins per Acre",
+        "$ / Bin": "$ / Bin",
+        "Total Revenue": "Total Revenue"
+    }
 
-    # Y-Axis Options
-    y_axis = st.sidebar.selectbox("Select Y-Axis", options=[
-        "Total Field Boxes", 
-        "Field Boxes Per Acre", 
-        "Total Bins (Tons)", 
-        "Bins per Acre", 
-        "$ / Bin", 
-        "Total Revenue"
-    ])
+    x_axis_label = st.sidebar.selectbox("Select X-Axis", options=list(x_axis_options.keys()))
+    y_axis_label = st.sidebar.selectbox("Select Y-Axis", options=list(y_axis_options.keys()))
+
+    # Define custom color map
+    color_map = {
+        "Clementines": "turquoise",
+        "Tangos": "red",
+        "Washington": "orange",
+        "Atwood": "orange",
+        "Cara Caras": "orange",
+        "Powells": "orange",
+        "Valencia": "purple",
+        "Lemons": "yellow",
+        "Grapefruit": "pink"
+    }
 
     # Bar Chart
-    st.markdown(f"### Bar Chart: {y_axis} by {x_axis}")
+    st.markdown(f"### Bar Chart: {y_axis_label} by {x_axis_label}")
     fig = px.bar(
-        sales_filtered, 
-        x=x_axis, 
-        y=y_axis, 
-        color=x_axis, 
-        labels={x_axis: x_axis, y_axis: y_axis},
-        title=f"{y_axis} grouped by {x_axis}"
+        sales_filtered,
+        x=x_axis_options[x_axis_label],
+        y=y_axis_options[y_axis_label],
+        color="Variety",
+        color_discrete_map=color_map,
+        labels={x_axis_options[x_axis_label]: x_axis_label, y_axis_options[y_axis_label]: y_axis_label},
+        title=f"{y_axis_label} grouped by {x_axis_label}"
     )
-    fig.update_layout(
-        bargap=0.3, 
-        plot_bgcolor="rgba(0,0,0,0)", 
-        paper_bgcolor="rgba(0,0,0,0)", 
-        title_x=0.5
-    )
+    fig.update_layout(bargap=0.3, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", title_x=0.5)
     st.plotly_chart(fig, use_container_width=True)
