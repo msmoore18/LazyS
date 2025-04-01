@@ -55,7 +55,7 @@ elif page == "Sales":
         "Tangos": "red",
         "Washington": "orange",
         "Atwood": "orange",
-        "Cara Caras": "orange",
+        "Cara Cara": "orange",
         "Powells": "orange",
         "Valencia": "purple",
         "Lemons": "yellow",
