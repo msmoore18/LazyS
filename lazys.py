@@ -20,7 +20,6 @@ if page == "Lot Map":
 
 # Sales Page
 elif page == "Sales":
-    st.title("\U0001F4CA Financial Sales Dashboard")
     st.markdown("<h4 style='color:gray;'>Interactive Analysis of Sales Data</h4>", unsafe_allow_html=True)
 
     st.sidebar.header("Filters & Chart Options")
@@ -66,7 +65,7 @@ elif page == "Sales":
 
     # Custom block order
     custom_block_order = [
-        "1 (OLD)", "2 (OLD)", "1", "2A", "2B" "3", "4", "5", "6", "7", "8", "9",
+        "1 (OLD)", "2 (OLD)", "1", "2A", "2B", "3", "4", "5", "6", "7", "8", "9",
         "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"
     ]
 
