@@ -20,7 +20,7 @@ if page == "Lot Map":
 
 # Sales Page
 elif page == "Sales":
-    st.title("\U0001F4CA Financial Sales Dashboard")
+    st.title("📊 Financial Sales Dashboard")
     st.markdown("<h4 style='color:gray;'>Interactive Analysis of Sales Data</h4>", unsafe_allow_html=True)
 
     st.sidebar.header("Filters & Chart Options")
@@ -31,13 +31,11 @@ elif page == "Sales":
 
     selected_year = st.sidebar.selectbox("Select Year", options=years_options, index=0)
 
+    # Filter data based on year selection
     if selected_year == "All":
         sales_filtered = data.copy()
     else:
         sales_filtered = data[data["Year"] == selected_year]
-
-    # Filter data
-    filtered_data = data[data["Year"].isin(selected_years)]
 
     # X-Axis Options
     x_axis = st.sidebar.selectbox("Select X-Axis", options=["Block", "Variety"])
@@ -54,8 +52,18 @@ elif page == "Sales":
 
     # Bar Chart
     st.markdown(f"### Bar Chart: {y_axis} by {x_axis}")
-    fig = px.bar(filtered_data, x=x_axis, y=y_axis, color=x_axis, 
-                 labels={x_axis: x_axis, y_axis: y_axis},
-                 title=f"{y_axis} grouped by {x_axis}")
-    fig.update_layout(bargap=0.3, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", title_x=0.5)
+    fig = px.bar(
+        sales_filtered, 
+        x=x_axis, 
+        y=y_axis, 
+        color=x_axis, 
+        labels={x_axis: x_axis, y_axis: y_axis},
+        title=f"{y_axis} grouped by {x_axis}"
+    )
+    fig.update_layout(
+        bargap=0.3, 
+        plot_bgcolor="rgba(0,0,0,0)", 
+        paper_bgcolor="rgba(0,0,0,0)", 
+        title_x=0.5
+    )
     st.plotly_chart(fig, use_container_width=True)
