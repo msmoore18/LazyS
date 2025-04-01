@@ -21,6 +21,7 @@ if page == "Lot Map":
 # Sales Page
 elif page == "Sales":
 
+    st.write("")
     st.sidebar.header("Filters & Chart Options")
 
     # Year filter
