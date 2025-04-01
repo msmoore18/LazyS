@@ -53,11 +53,11 @@ elif page == "Sales":
     color_map = {
         "Clementines": "turquoise",
         "Tangos": "red",
-        "Washington": "orange",
-        "Atwood": "orange",
+        "Washingtons": "orange",
+        "Atwoods": "orange",
         "Cara Cara": "orange",
         "Powells": "orange",
-        "Valencia": "purple",
+        "Valencias": "purple",
         "Lemons": "yellow",
         "Grapefruit": "pink"
     }
