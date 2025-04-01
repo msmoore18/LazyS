@@ -78,7 +78,6 @@ elif page == "Sales":
         color_discrete_map=color_map,
         category_orders={"Block": custom_block_order} if x_axis_label == "Block" else {},
         labels={x_axis_options[x_axis_label]: x_axis_label, y_axis_options[y_axis_label]: y_axis_label},
-        title=f"{y_axis_label} grouped by {x_axis_label}"
     )
     fig.update_layout(bargap=0.3, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", title_x=0.5)
     st.plotly_chart(fig, use_container_width=True)
