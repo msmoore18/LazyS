@@ -45,7 +45,7 @@ elif page == "Sales":
         "Total Field Boxes", 
         "Field Boxes Per Acre", 
         "Total Bins (tons)", 
-        "Bins Per Acre", 
+        "Bins per Acre", 
         "$ / Bin", 
         "Total Revenue"
     ])
