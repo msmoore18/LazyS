@@ -27,7 +27,14 @@ elif page == "Sales":
 
     # Year filter
     years = sorted(data["Year"].dropna().unique())
-    selected_years = st.sidebar.multiselect("Select Year(s)", options=years, default=years)
+    years_options = ["All"] + years
+
+    selected_year = st.sidebar.selectbox("Select Year", options=years_options, index=0)
+
+    if selected_year == "All":
+        sales_filtered = data.copy()
+    else:
+        sales_filtered = data[data["Year"] == selected_year]
 
     # Filter data
     filtered_data = data[data["Year"].isin(selected_years)]
