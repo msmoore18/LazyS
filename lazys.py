@@ -70,7 +70,6 @@ elif page == "Sales":
     ]
 
     # Bar Chart
-    st.markdown(f"### Bar Chart: {y_axis_label} by {x_axis_label}")
     fig = px.bar(
         sales_filtered,
         x=x_axis_options[x_axis_label],
