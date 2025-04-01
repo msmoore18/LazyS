@@ -21,7 +21,6 @@ if page == "Lot Map":
 # Sales Page
 elif page == "Sales":
 
-    st.write("")
     st.sidebar.header("Filters & Chart Options")
 
     # Year filter
@@ -79,5 +78,5 @@ elif page == "Sales":
         category_orders={"Block": custom_block_order} if x_axis_label == "Block" else {},
         labels={x_axis_options[x_axis_label]: x_axis_label, y_axis_options[y_axis_label]: y_axis_label},
     )
-    fig.update_layout(bargap=0.3, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)", title_x=0.5)
+    fig.update_layout(bargap=0.3, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
     st.plotly_chart(fig, use_container_width=True)
