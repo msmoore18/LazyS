@@ -64,6 +64,12 @@ elif page == "Sales":
         "Grapefruit": "pink"
     }
 
+    # Custom block order
+    custom_block_order = [
+        "1 (OLD)", "2 (OLD)", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26"
+    ]
+
     # Bar Chart
     st.markdown(f"### Bar Chart: {y_axis_label} by {x_axis_label}")
     fig = px.bar(
@@ -72,6 +78,7 @@ elif page == "Sales":
         y=y_axis_options[y_axis_label],
         color="Variety",
         color_discrete_map=color_map,
+        category_orders={"Block": custom_block_order} if x_axis_label == "Block" else {},
         labels={x_axis_options[x_axis_label]: x_axis_label, y_axis_options[y_axis_label]: y_axis_label},
         title=f"{y_axis_label} grouped by {x_axis_label}"
     )
