@@ -44,7 +44,7 @@ elif page == "Sales":
     y_axis = st.sidebar.selectbox("Select Y-Axis", options=[
         "Total Field Boxes", 
         "Field Boxes Per Acre", 
-        "Total Bins (tons)", 
+        "Total Bins (Tons)", 
         "Bins per Acre", 
         "$ / Bin", 
         "Total Revenue"
