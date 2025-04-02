@@ -25,7 +25,7 @@ elif page == "Sales":
 
     # Year filter
     years = sorted(data["Year"].dropna().unique())
-    years_options = ["All"] + years
+    years_options = years
 
     selected_year = st.sidebar.selectbox("Select Year", options=years_options, index=0)
 
@@ -35,7 +35,7 @@ elif page == "Sales":
     else:
         sales_filtered = data[data["Year"] == selected_year]
 
-    # Axis options
+    # Y-Axis options
     y_axis_options = {
         "Total Field Boxes": "Total Field Boxes",
         "Field Boxes Per Acre": "Field Boxes Per Acre",
@@ -45,7 +45,6 @@ elif page == "Sales":
         "Total Revenue": "Total Revenue"
     }
 
-    x_axis_label = "Block"
     y_axis_label = st.sidebar.selectbox("Select Y-Axis", options=list(y_axis_options.keys()))
 
     # Define custom color map
@@ -71,12 +70,12 @@ elif page == "Sales":
     # Bar Chart
     fig = px.bar(
         sales_filtered,
-        x=x_axis_options[x_axis_label],
+        x="Block",
         y=y_axis_options[y_axis_label],
         color="Variety",
         color_discrete_map=color_map,
-        category_orders={"Block": custom_block_order} if x_axis_label == "Block" else {},
-        labels={x_axis_options[x_axis_label]: x_axis_label, y_axis_options[y_axis_label]: y_axis_label},
+        category_orders={"Block": custom_block_order},
+        labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label},
     )
     fig.update_layout(bargap=0.3, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
     st.plotly_chart(fig, use_container_width=True)
