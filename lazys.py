@@ -84,7 +84,6 @@ elif page == "Sales":
             category_orders={"Block": custom_block_order},
             facet_col="Year",
             labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label},
-            title=None
         )
     else:
         fig = px.bar(
@@ -101,7 +100,6 @@ elif page == "Sales":
         bargap=0.3,
         plot_bgcolor="rgba(0,0,0,0)",
         paper_bgcolor="rgba(0,0,0,0)",
-        title_x=0.5,
         margin=dict(t=30)
     )
 
