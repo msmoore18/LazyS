@@ -51,14 +51,14 @@ elif page == "Sales":
     color_map = {
         "Clementines": "turquoise",
         "Tangos": "red",
-        "Washingtons": "orange",
-        "Atwood": "orange",
-        "Cara Cara": "orange",
+        "Washingtons": "dark orange",
+        "Atwood": "light orange",
+        "Cara Caras": "orange",
         "Powells": "orange",
         "Valencias": "purple",
         "Lemons": "yellow",
         "Grapefruit": "pink",
-        "Late Lane": "pink"
+        "Late Lane": "orange"
     }
 
     # Custom block order
