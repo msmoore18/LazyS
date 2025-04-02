@@ -49,14 +49,14 @@ elif page == "Sales":
 
     # Define custom color map
     color_map = {
-        "Clementines": "turquoise",
-        "Tangos": "red",
-        "Washingtons": "orange",
+        "Clementine": "turquoise",
+        "Tango": "red",
+        "Washington": "orange",
         "Atwood": "orange",
-        "Cara Caras": "orange",
-        "Powells": "orange",
-        "Valencias": "purple",
-        "Lemons": "yellow",
+        "Cara Cara": "orange",
+        "Powell": "orange",
+        "Valencia": "purple",
+        "Lemon": "yellow",
         "Grapefruit": "pink",
         "Late Lane": "orange"
     }
