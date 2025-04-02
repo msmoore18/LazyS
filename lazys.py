@@ -72,17 +72,28 @@ elif page == "Sales":
     # Filter data based on year selection
     sales_filtered = data[data["Year"].isin(selected_years)]
 
-    # Bar Chart
-    fig = px.bar(
-        sales_filtered,
-        x="Block",
-        y=y_axis_options[y_axis_label],
-        color="Variety",
-        color_discrete_map=color_map,
-        category_orders={"Block": custom_block_order},
-        facet_col="Year",
-        labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label},
-    )
+    # === Fix: remove facet_col when only one year is selected ===
+    if len(selected_years) > 1:
+        fig = px.bar(
+            sales_filtered,
+            x="Block",
+            y=y_axis_options[y_axis_label],
+            color="Variety",
+            color_discrete_map=color_map,
+            category_orders={"Block": custom_block_order},
+            facet_col="Year",
+            labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label},
+        )
+    else:
+        fig = px.bar(
+            sales_filtered,
+            x="Block",
+            y=y_axis_options[y_axis_label],
+            color="Variety",
+            color_discrete_map=color_map,
+            category_orders={"Block": custom_block_order},
+            labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label},
+        )
 
     fig.update_layout(
         bargap=0.3,
@@ -93,4 +104,3 @@ elif page == "Sales":
     )
 
     st.plotly_chart(fig, use_container_width=True)
-
