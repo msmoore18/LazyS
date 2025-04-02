@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+from datetime import datetime
 
 # Streamlit page configuration
 st.set_page_config(page_title="Financial Dashboard", layout="wide")
@@ -23,13 +24,18 @@ elif page == "Sales":
 
     st.sidebar.header("Filters & Chart Options")
 
+    # Get current year
+    current_year = datetime.now().year
+
     # Year filter (Multi-select)
     years = sorted(data["Year"].dropna().unique())
-    selected_years = st.sidebar.multiselect("Select Year(s)", options=years, default=years)
+    default_years = [current_year] if current_year in years else [years[-1]]  # fallback to latest if current year not present
 
-    # Variety filter (Multi-select)
-    varieties = sorted(data["Variety"].dropna().unique())
-    selected_varieties = st.sidebar.multiselect("Select Variety(ies)", options=varieties, default=varieties)
+    selected_years = st.sidebar.multiselect(
+        "Select Year(s)",
+        options=years,
+        default=default_years
+    )
 
     # Y-Axis options
     y_axis_options = {
@@ -40,6 +46,7 @@ elif page == "Sales":
         "$ / Bin": "$ / Bin",
         "Total Revenue": "Total Revenue"
     }
+
     y_axis_label = st.sidebar.selectbox("Select Y-Axis", options=list(y_axis_options.keys()))
 
     # Define custom color map
@@ -62,13 +69,10 @@ elif page == "Sales":
         "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"
     ]
 
-    # Filter data based on year and variety selections
-    sales_filtered = data[
-        (data["Year"].isin(selected_years)) &
-        (data["Variety"].isin(selected_varieties))
-    ]
+    # Filter data based on year selection
+    sales_filtered = data[data["Year"].isin(selected_years)]
 
-    # Bar Chart: Variety-colored bars, faceted by Year
+    # Bar Chart
     fig = px.bar(
         sales_filtered,
         x="Block",
@@ -89,3 +93,4 @@ elif page == "Sales":
     )
 
     st.plotly_chart(fig, use_container_width=True)
+
