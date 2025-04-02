@@ -36,7 +36,6 @@ elif page == "Sales":
         sales_filtered = data[data["Year"] == selected_year]
 
     # Axis options
-    x_axis_options = {"Block": "Block", "Variety": "Variety"}
     y_axis_options = {
         "Total Field Boxes": "Total Field Boxes",
         "Field Boxes Per Acre": "Field Boxes Per Acre",
@@ -46,7 +45,7 @@ elif page == "Sales":
         "Total Revenue": "Total Revenue"
     }
 
-    x_axis_label = st.sidebar.selectbox("Select X-Axis", options=list(x_axis_options.keys()))
+    x_axis_label = "Block"
     y_axis_label = st.sidebar.selectbox("Select Y-Axis", options=list(y_axis_options.keys()))
 
     # Define custom color map
