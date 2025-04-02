@@ -23,17 +23,13 @@ elif page == "Sales":
 
     st.sidebar.header("Filters & Chart Options")
 
-    # Year filter
+    # Year filter (Multi-select)
     years = sorted(data["Year"].dropna().unique())
-    years_options = years
+    selected_years = st.sidebar.multiselect("Select Year(s)", options=years, default=years)
 
-    selected_year = st.sidebar.selectbox("Select Year", options=years_options, index=0)
-
-    # Filter data based on year selection
-    if selected_year == "All":
-        sales_filtered = data.copy()
-    else:
-        sales_filtered = data[data["Year"] == selected_year]
+    # Variety filter (Multi-select)
+    varieties = sorted(data["Variety"].dropna().unique())
+    selected_varieties = st.sidebar.multiselect("Select Variety(ies)", options=varieties, default=varieties)
 
     # Y-Axis options
     y_axis_options = {
@@ -44,7 +40,6 @@ elif page == "Sales":
         "$ / Bin": "$ / Bin",
         "Total Revenue": "Total Revenue"
     }
-
     y_axis_label = st.sidebar.selectbox("Select Y-Axis", options=list(y_axis_options.keys()))
 
     # Define custom color map
@@ -67,7 +62,13 @@ elif page == "Sales":
         "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"
     ]
 
-    # Bar Chart
+    # Filter data based on year and variety selections
+    sales_filtered = data[
+        (data["Year"].isin(selected_years)) &
+        (data["Variety"].isin(selected_varieties))
+    ]
+
+    # Bar Chart: Variety-colored bars, faceted by Year
     fig = px.bar(
         sales_filtered,
         x="Block",
@@ -75,7 +76,16 @@ elif page == "Sales":
         color="Variety",
         color_discrete_map=color_map,
         category_orders={"Block": custom_block_order},
+        facet_col="Year",
         labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label},
     )
-    fig.update_layout(bargap=0.3, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
+
+    fig.update_layout(
+        bargap=0.3,
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        title_x=0.5,
+        margin=dict(t=30)
+    )
+
     st.plotly_chart(fig, use_container_width=True)
