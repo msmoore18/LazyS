@@ -84,6 +84,7 @@ elif page == "Sales":
             category_orders={"Block": custom_block_order},
             facet_col="Year",
             labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label},
+            title=None
         )
     else:
         fig = px.bar(
