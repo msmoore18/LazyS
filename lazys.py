@@ -22,6 +22,7 @@ if page == "Lot Map":
 # Sales Page
 elif page == "Sales":
 
+    st.title("Sales")
     st.sidebar.header("Filters & Chart Options")
 
     # Get current year
