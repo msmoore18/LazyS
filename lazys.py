@@ -28,9 +28,9 @@ elif page == "Sales":
     # Get current year
     current_year = datetime.now().year
 
-    # Year filter (Multi-select)
+    # Year filter
     years = sorted(data["Year"].dropna().unique())
-    default_years = [current_year] if current_year in years else [years[-1]]
+    default_years = [current_year] if current_year in years else [years[-1]]  # fallback to latest if current year not present
 
     selected_years = st.sidebar.multiselect(
         "Select Year(s)",
@@ -70,10 +70,10 @@ elif page == "Sales":
         "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"
     ]
 
-    # Filter data based on year selection
+    # Filter data
     sales_filtered = data[data["Year"].isin(selected_years)]
 
-    # Bar Chart
+    # Plot
     if len(selected_years) > 1:
         fig = px.bar(
             sales_filtered,
@@ -106,8 +106,8 @@ elif page == "Sales":
 
     st.plotly_chart(fig, use_container_width=True)
 
-    # Pivot Table
-    pivot = sales_filtered.pivot_table(
+    # Pivot Table (Block as columns, Year as rows)
+    pivot_table = sales_filtered.pivot_table(
         index="Year",
         columns="Block",
         values=y_axis_options[y_axis_label],
@@ -115,5 +115,5 @@ elif page == "Sales":
         fill_value=0
     )
 
-    st.subheader("Summary Table")
+    # Display pivot table with zero decimal places
     st.dataframe(pivot_table.style.format("{:.0f}"))
