@@ -70,7 +70,7 @@ elif page == "Sales":
         "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"
     ]
 
-        # Pivot Table
+    # Pivot Table
     st.subheader("Summary Table")
     
     pivot_table = sales_filtered.pivot_table(
@@ -84,7 +84,7 @@ elif page == "Sales":
     # Sort columns in custom order if available
     pivot_table = pivot_table.reindex(columns=custom_block_order, fill_value=0)
 
-st.dataframe(pivot_table.style.format("{:,.0f}"), use_container_width=True)
+    st.dataframe(pivot_table.style.format("{:,.0f}"), use_container_width=True)
 
 
     # Filter data based on year selection
