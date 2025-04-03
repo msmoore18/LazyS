@@ -30,7 +30,7 @@ elif page == "Sales":
 
     # Year filter (Multi-select)
     years = sorted(data["Year"].dropna().unique())
-    default_years = [current_year] if current_year in years else [years[-1]]  # fallback to latest if current year not present
+    default_years = [current_year] if current_year in years else [years[-1]]
 
     selected_years = st.sidebar.multiselect(
         "Select Year(s)",
@@ -57,7 +57,7 @@ elif page == "Sales":
         "Washington": "orange",
         "Atwood": "orange",
         "Cara Cara": "orange",
-        "Powells": "orange",
+        "Powell": "orange",
         "Valencia": "purple",
         "Lemon": "yellow",
         "Grapefruit": "pink",
@@ -70,27 +70,10 @@ elif page == "Sales":
         "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"
     ]
 
-    # Pivot Table
-    st.subheader("Summary Table")
-    
-    pivot_table = sales_filtered.pivot_table(
-        index="Year",
-        columns="Block",
-        values=y_axis_options[y_axis_label],
-        aggfunc="sum",
-        fill_value=0
-    )
-    
-    # Sort columns in custom order if available
-    pivot_table = pivot_table.reindex(columns=custom_block_order, fill_value=0)
-
-    st.dataframe(pivot_table.style.format("{:,.0f}"), use_container_width=True)
-
-
     # Filter data based on year selection
     sales_filtered = data[data["Year"].isin(selected_years)]
 
-    # === Fix: remove facet_col when only one year is selected ===
+    # Bar Chart
     if len(selected_years) > 1:
         fig = px.bar(
             sales_filtered,
@@ -100,7 +83,7 @@ elif page == "Sales":
             color_discrete_map=color_map,
             category_orders={"Block": custom_block_order},
             facet_col="Year",
-            labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label},
+            labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label}
         )
     else:
         fig = px.bar(
@@ -110,7 +93,7 @@ elif page == "Sales":
             color="Variety",
             color_discrete_map=color_map,
             category_orders={"Block": custom_block_order},
-            labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label},
+            labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label}
         )
 
     fig.update_layout(
@@ -121,3 +104,18 @@ elif page == "Sales":
     )
 
     st.plotly_chart(fig, use_container_width=True)
+
+    # --- Pivot Table ---
+    st.subheader("Summary Table")
+
+    pivot_table = sales_filtered.pivot_table(
+        index="Year",
+        columns="Block",
+        values=y_axis_options[y_axis_label],
+        aggfunc="sum",
+        fill_value=0
+    )
+
+    pivot_table = pivot_table.reindex(columns=custom_block_order, fill_value=0)
+
+    st.dataframe(pivot_table.style.format("{:,.0f}"), use_container_width=True)
