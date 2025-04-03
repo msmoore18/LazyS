@@ -83,7 +83,7 @@ elif page == "Sales":
             color_discrete_map=color_map,
             category_orders={"Block": custom_block_order},
             facet_col="Year",
-            labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label}
+            labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label},
         )
     else:
         fig = px.bar(
@@ -93,7 +93,7 @@ elif page == "Sales":
             color="Variety",
             color_discrete_map=color_map,
             category_orders={"Block": custom_block_order},
-            labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label}
+            labels={"Block": "Block", y_axis_options[y_axis_label]: y_axis_label},
         )
 
     fig.update_layout(
@@ -102,13 +102,10 @@ elif page == "Sales":
         paper_bgcolor="rgba(0,0,0,0)",
         margin=dict(t=30)
     )
-
     st.plotly_chart(fig, use_container_width=True)
 
-    # --- Pivot Table ---
-    st.subheader("Summary Table")
-
-    pivot_table = sales_filtered.pivot_table(
+    # Pivot Table (Fixed)
+    pivot = sales_filtered.pivot_table(
         index="Year",
         columns="Block",
         values=y_axis_options[y_axis_label],
@@ -116,6 +113,9 @@ elif page == "Sales":
         fill_value=0
     )
 
-    pivot_table = pivot_table.reindex(columns=custom_block_order, fill_value=0)
+    # Only show available blocks but keep custom order
+    available_blocks = [block for block in custom_block_order if block in pivot.columns]
+    pivot = pivot[available_blocks]
 
-    st.dataframe(pivot_table.style.format("{:,.0f}"), use_container_width=True)
+    st.subheader("Summary Table")
+    st.dataframe(pivot, use_container_width=True)
