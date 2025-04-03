@@ -100,11 +100,13 @@ elif page == "Sales":
         bargap=0.3,
         plot_bgcolor="rgba(0,0,0,0)",
         paper_bgcolor="rgba(0,0,0,0)",
+        title_x=0.5,
         margin=dict(t=30)
     )
+
     st.plotly_chart(fig, use_container_width=True)
 
-    # Pivot Table (Fixed)
+    # Pivot Table
     pivot = sales_filtered.pivot_table(
         index="Year",
         columns="Block",
@@ -112,10 +114,6 @@ elif page == "Sales":
         aggfunc="sum",
         fill_value=0
     )
-
-    # Only show available blocks but keep custom order
-    available_blocks = [block for block in custom_block_order if block in pivot.columns]
-    pivot = pivot[available_blocks]
 
     st.subheader("Summary Table")
     st.dataframe(pivot, use_container_width=True)
