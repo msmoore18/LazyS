@@ -117,4 +117,3 @@ elif page == "Sales":
 
     st.subheader("Summary Table")
     st.dataframe(pivot_table.style.format("{:.0f}"))
-    st.dataframe(pivot, use_container_width=True)
